@@ -14,12 +14,13 @@ public class Main {
     static Command command;
     static CommandHandler ch = new CommandHandler();
     static MusicHandler mh = new MusicHandler();
+    static String private_key = ""; //Keyholder for the bot
 
 
     //The main function
     public static void main(String[] args){
         //Client is created, do stuff after this line
-        client = createClient("",true);
+        client = createClient(private_key,true);
         //This creates a listener that calls different functions when the condition is met in chats
         //Check the HandlerClass and all it's conditions for each function
         client.getDispatcher().registerListener(new HandlerClass());
