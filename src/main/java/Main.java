@@ -19,6 +19,8 @@ public class Main {
 
     //The main function
     public static void main(String[] args){
+        //TODO Get key here
+        private_key = loadKey();
         //Client is created, do stuff after this line
         client = createClient(private_key,true);
         //This creates a listener that calls different functions when the condition is met in chats
@@ -54,7 +56,7 @@ public class Main {
         //This function is called when a message is edited in a channel the bot has permission to view
         @EventSubscriber
         public void onMessageEditedEvent(MessageEditEvent event) {
-
+            //Log that
         }
     }
 
@@ -73,5 +75,10 @@ public class Main {
             e.printStackTrace();
             return null;
         }
+    }
+    public static String loadKey(){
+
+
+        return "";
     }
 }
