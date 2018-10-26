@@ -13,6 +13,8 @@ public class Command {
     }
 
 
+
+
     public String[] getArgs(MessageReceivedEvent event,String cmdKey){
         lastMsg = event.getMessage().toString();
         if(lastMsg.length()<2){return new String[0];}

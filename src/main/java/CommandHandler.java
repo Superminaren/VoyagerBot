@@ -28,24 +28,27 @@ public class CommandHandler {
 
     public static void play(){
         //Play song given in chat
+
     }
     public static void stop(){
         //Stop guild music
+
     }
     public static void pause(){
         //Pause guild music
-    }
 
+    }
+    public static void skip(){
+        //Skip guild music
+
+    }
 
 
      static {
         commandMap.put("play", CommandHandler::play);
         commandMap.put("stop", CommandHandler::stop);
         commandMap.put("pause", CommandHandler::pause);
-    }
-
-    void checkCommand(){
-
+        commandMap.put("skip", CommandHandler::skip);
     }
 
 }
