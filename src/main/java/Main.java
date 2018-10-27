@@ -57,6 +57,7 @@ public class Main {
         @EventSubscriber
         public void onMessageEditedEvent(MessageEditEvent event) {
             //Log that
+            
         }
     }
 
