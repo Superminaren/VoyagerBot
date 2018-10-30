@@ -6,6 +6,10 @@ import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageEditEvent;
 import sx.blah.discord.util.DiscordException;
+
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 //This is a comment, these make it easy to see what I want with each line of code
 //TODO this is a TODO and is used to see what goals are in the program
 
@@ -15,12 +19,15 @@ public class Main {
     static CommandHandler ch = new CommandHandler();
     static MusicHandler mh = new MusicHandler();
     static String private_key = ""; //Keyholder for the bot
+    static MatrixUpdater matrixUpdater;
 
 
     //The main function
     public static void main(String[] args){
+        try{matrixUpdater = new MatrixUpdater(9090);}catch (Exception e){e.printStackTrace();} //Initialize thingy
         //TODO Get key here
-        private_key = loadKey();
+        //private_key = loadKey();
+        loadKey();
         //Client is created, do stuff after this line
         client = createClient(private_key,true);
         //This creates a listener that calls different functions when the condition is met in chats
@@ -28,6 +35,15 @@ public class Main {
         client.getDispatcher().registerListener(new HandlerClass());
 
 
+    }
+    static void loadKey(){
+        //Does stuff
+        try{
+            private_key = Files.readAllLines(Paths.get(Main.class.getClassLoader().getResource("key.txt").toURI()), StandardCharsets.UTF_8).get(0);
+        }catch (Exception e){
+            System.out.println("Something happened when reading key.");
+            System.exit(0);
+        }
     }
 
 
@@ -46,9 +62,12 @@ public class Main {
         //This function is called when a message is sent in a channel the bot has permission to view
         @EventSubscriber
         public void onMessageReceivedEvent(MessageReceivedEvent event) { // This method is NOT called because it doesn't have the @EventSubscriber annotation
+            matrixUpdater.send(event.getMessage().toString());
             if(isCommand(event, cmdKey)){
+
                 ch.checkCommand(event,getArgs(event,cmdKey));
                 mh.checkCommand(event,getArgs(event,cmdKey));
+
 
             }
         }
@@ -77,10 +96,6 @@ public class Main {
             return null;
         }
     }
-    public static String loadKey(){
 
-
-        return "";
-    }
 
 }
