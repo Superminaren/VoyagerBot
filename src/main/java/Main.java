@@ -26,7 +26,6 @@ public class Main {
     public static void main(String[] args){
         try{matrixUpdater = new MatrixUpdater(9090);}catch (Exception e){e.printStackTrace();} //Initialize thingy
         //TODO Get key here
-        //private_key = loadKey();
         loadKey();
         //Client is created, do stuff after this line
         client = createClient(private_key,true);
@@ -36,15 +35,7 @@ public class Main {
 
 
     }
-    static void loadKey(){
-        //Does stuff
-        try{
-            private_key = Files.readAllLines(Paths.get(Main.class.getClassLoader().getResource("key.txt").toURI()), StandardCharsets.UTF_8).get(0);
-        }catch (Exception e){
-            System.out.println("Something happened when reading key.");
-            System.exit(0);
-        }
-    }
+
 
 
 
@@ -81,6 +72,18 @@ public class Main {
     }
 
 
+    //Loads the key from the key.txt file you put in the resources folder
+    static String loadKey(){
+        //Does stuff
+        try{
+            private_key = Files.readAllLines(Paths.get(Main.class.getClassLoader().getResource("key.txt").toURI()), StandardCharsets.UTF_8).get(0);
+        }catch (Exception e){
+            System.out.println("Something happened when reading key.");
+            private_key = "";
+            System.exit(0);
+        }
+        return private_key;
+    }
     //This creates the client and returns the instance of it
     public static IDiscordClient createClient(String token, boolean login) { // Returns a new instance of the Discord client
         ClientBuilder clientBuilder = new ClientBuilder(); // Creates the ClientBuilder instance
